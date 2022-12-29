@@ -8,11 +8,7 @@ export class UserResolver {
   constructor(private userService: UserService) {}
 
   @Query((returns) => User)
-  async getUser(
-    @Arg('token', { nullable: true }) token: string,
-    @Arg('name') name: string,
-    @Arg('password') password: string,
-  ) {
-    return this.userService.getUserByName(name, password);
+  async getUser(@Arg('token') token: string, @Arg('name') name: string) {
+    return this.userService.getUserByUsername(name);
   }
 }

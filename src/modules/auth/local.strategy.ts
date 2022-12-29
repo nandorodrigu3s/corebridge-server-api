@@ -9,10 +9,12 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     super();
   }
 
-  async validate(username: string, password: string): Promise<any> {
+  async validate(username: string, password: string): Promise<void> {
     const user = await this.authService.validateUser(username, password);
     if (!user) {
-      throw new Error(`this is my error: ${username} - ${password}`);
+      throw new UnauthorizedException(
+        'Ops, dados de login inválidos, favor verifique e tente novamente.',
+      );
     }
     return user;
   }
