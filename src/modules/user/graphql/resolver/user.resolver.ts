@@ -1,5 +1,6 @@
-import { ResolveField, Parent } from '@nestjs/graphql';
-import { Resolver, Query, Arg } from 'type-graphql';
+import { UseGuards } from '@nestjs/common';
+import { Resolver, Query, Args } from '@nestjs/graphql';
+import { GqlJWTAuthGuard } from '../../../../modules/auth/guards/gql-jwt-auth.guard';
 import { UserService } from '../../user.service';
 import { User } from '../types/user.object-type.graphql';
 
@@ -7,8 +8,13 @@ import { User } from '../types/user.object-type.graphql';
 export class UserResolver {
   constructor(private userService: UserService) {}
 
-  @Query((returns) => User)
-  async getUser(@Arg('token') token: string, @Arg('name') name: string) {
-    return this.userService.getUserByUsername(name);
+  @Query((returns) => User, { nullable: true })
+  @UseGuards(GqlJWTAuthGuard)
+  async getUser(
+    @Args('token') token: string,
+    @Args('username') name: string,
+  ): Promise<User | null> {
+    const user = await this.userService.getUserByUsername(name);
+    return user;
   }
 }

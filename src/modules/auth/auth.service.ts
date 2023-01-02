@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '../user/model/user.model';
 import { UserService } from '../user/user.service';
+import { AuthModel } from './model/auth.model';
 
 @Injectable()
 export class AuthService {
@@ -10,13 +11,19 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async validateUser(username: string, pass: string): Promise<any> {
+  async authLogin(user: User): Promise<any> {
+    const { password, ...result } = user;
+    const payload = { username: user.username, sub: user.userId };
+    const newToken = this.jwtService.sign(payload, {
+      secret: process.env.JWT_SECRET,
+      expiresIn: 35,
+    });
+    return { user: result, token: newToken };
+  }
+
+  async findByUsername(username: string): Promise<User> {
     const user = await this.userService.getUserByUsername(username);
-    if (user && user.password === pass) {
-      const { password, ...result } = user;
-      return result;
-    }
-    return null;
+    return user;
   }
 
   async validateUserById(id: number): Promise<any> {
@@ -28,13 +35,10 @@ export class AuthService {
     return null;
   }
 
-  async login(user: User) {
-    const payload = { username: user.username, sub: user.userId };
+  async login(auth: AuthModel) {
+    const payload = { username: auth.username, sub: auth.password };
     return {
-      access_token: this.jwtService.sign(payload, {
-        secret: process.env.JWT_SECRET,
-        expiresIn: 30,
-      }),
+      token: this.jwtService.sign(payload),
     };
   }
 }

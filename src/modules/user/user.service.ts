@@ -5,7 +5,7 @@ import { User } from './model/user.model';
 export class UserService {
   private readonly users: User[] = [
     {
-      firstName: 'Balakun ',
+      firstName: 'Balakun',
       lastName: 'Trimbanum',
       assets: 9,
       password: 'plaft!@$##65G654',
@@ -13,7 +13,7 @@ export class UserService {
       username: 'bronks',
     },
     {
-      firstName: 'Aleikan ',
+      firstName: 'Aleikan',
       lastName: 'Trimbanum',
       assets: 19,
       password: '!$pla#tyusta654',
@@ -21,7 +21,7 @@ export class UserService {
       username: 'bronks1',
     },
     {
-      firstName: 'Hamanam ',
+      firstName: 'Hamanam',
       lastName: 'Trimbanum',
       assets: 96,
       password: 'plaft!KN54',
@@ -29,7 +29,7 @@ export class UserService {
       username: 'bronks2',
     },
     {
-      firstName: 'Vatanuk ',
+      firstName: 'Vatanuk',
       lastName: 'Trimbanum',
       assets: 37,
       password: 'i$#4dalDL$Askj@5',

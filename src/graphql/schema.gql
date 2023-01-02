@@ -1,0 +1,43 @@
+type User {
+  firstName: String!
+  lastName: String!
+  assets: Int
+}
+
+type Customer {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type AuthData {
+  token: String!
+  user: User!
+}
+
+type Query {
+  getUser(token: String!, username: String!): User
+  customer(id: Int!): Customer!
+}
+
+type Mutation {
+  login(authInput: Auth!): AuthData
+  createCustomer(createCustomerInput: CreateCustomerInput!): Customer!
+  updateCustomer(updateCustomerInput: UpdateCustomerInput!): Customer!
+  removeCustomer(id: Int!): Customer!
+}
+
+input Auth {
+  username: String!
+  password: String!
+}
+
+input CreateCustomerInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateCustomerInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}

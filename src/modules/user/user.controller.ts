@@ -7,10 +7,10 @@ import { UserService } from './user.service';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @UseGuards(JwtAuthGuard)
-  @Get('/profile')
-  async profile(@Query('id') id: number) {
-    const user = await this.userService.getUserByID(+id);
-    return { user };
-  }
+  // @UseGuards(JwtAuthGuard)
+  // @Get('/profile')
+  // async profile(@Query('id') id: number) {
+  //   const user = await this.userService.getUserByID(+id);
+  //   return { user };
+  // }
 }
