@@ -1,7 +1,9 @@
 import { Strategy } from 'passport-local';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { AuthService } from './auth.service';
+import { AuthService } from '../auth.service';
+import { Auth } from '../graphql/types/auth.input-type.graphql';
+import { User } from 'src/modules/user/model/user.model';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
@@ -9,9 +11,9 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     super();
   }
 
-  async validate(username: string, password: string): Promise<void> {
-    const user = await this.authService.validateUser(username, password);
-    if (!user) {
+  async validate(username: string, password: string): Promise<User> {
+    const user = await this.authService.findByUsername(username);
+    if (!user || user.password !== password) {
       throw new UnauthorizedException(
         'Ops, dados de login inválidos, favor verifique e tente novamente.',
       );
