@@ -4,11 +4,11 @@ import {
   GraphQLSchemaFactory,
 } from '@nestjs/graphql';
 import { printSchema } from 'graphql';
-import { UserResolver } from './modules/user/graphql/resolver/user.resolver';
+import { UserResolver } from './modules/user/datasource/graphql/resolver/user.resolver';
 import * as fs from 'fs';
 import { promisify } from 'util';
 import { CustomerResolver } from './modules/customer/graphql/resolver/customer.resolver';
-import { AuthResolver } from './modules/auth/graphql/resolver/auth.resolver';
+import { AuthResolver } from './modules/auth/datasource/graphql/resolver/auth.resolver';
 
 const checkIfFileOrDirectoryExists = (path: string): boolean => {
   return fs.existsSync(path);

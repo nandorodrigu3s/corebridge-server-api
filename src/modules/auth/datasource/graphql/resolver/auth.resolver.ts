@@ -1,7 +1,7 @@
 import { UseGuards } from '@nestjs/common';
 import { Resolver, Query, Args, Mutation, Context } from '@nestjs/graphql';
-import { GqlAuthGuard } from '../../guards/graphql-auth.guard';
-import { AuthService } from '../../auth.service';
+import { AuthService } from '../../../auth.service';
+import { GqlAuthGuard } from '../../../guards/graphql-auth.guard';
 import { Auth } from '../types/auth.input-type.graphql';
 import { AuthData } from '../types/auth.object-type.graphql';
 
@@ -15,7 +15,6 @@ export class AuthResolver {
     @Args('authInput') authInput: Auth,
     @Context() context,
   ): Promise<AuthData | null> {
-    console.log('contextcontextcontext ', context);
     const user = await this.authService.authLogin(context.user);
     return user;
   }

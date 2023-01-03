@@ -1,9 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { User } from './model/user.model';
+import { UserMongoDbDatasource } from './datasource/mongo/user.db-datasource.mongo';
+import { UserModel } from './model/user.model';
+import { UserRepository } from './repository/user.repository';
 
 @Injectable()
 export class UserService {
-  private readonly users: User[] = [
+  private userRepository = new UserRepository(new UserMongoDbDatasource());
+  private readonly users: UserModel[] = [
     {
       firstName: 'Balakun',
       lastName: 'Trimbanum',
@@ -38,11 +41,15 @@ export class UserService {
     },
   ];
 
-  async getUserByUsername(username: string): Promise<User> {
+  async getUserByUsername(username: string): Promise<UserModel> {
     return await this.users.find((item) => item.username.includes(username));
   }
 
-  async getUserByID(id: number): Promise<User> {
-    return await this.users.find((item) => item.userId === id);
+  async getUserById(userId: number): Promise<UserModel> {
+    return await this.users.find((item) => item.userId === userId);
+  }
+
+  async getByUserId(userId: string): Promise<UserModel> {
+    return await this.userRepository.findUserByUserId(userId);
   }
 }
