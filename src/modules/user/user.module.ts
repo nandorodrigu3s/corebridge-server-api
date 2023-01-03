@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { AuthService } from '../auth/auth.service';
 import { LocalStrategy } from '../auth/strategies/local.strategy';
-import { UserResolver } from './graphql/resolver/user.resolver';
+import { UserResolver } from './datasource/graphql/resolver/user.resolver';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
 

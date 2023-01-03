@@ -5,7 +5,7 @@ import { UserModule } from '../user/user.module';
 import { LocalStrategy } from './strategies/local.strategy';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { JwtStrategy } from './strategies/jwt.strategy';
-import { AuthResolver } from './graphql/resolver/auth.resolver';
+import { AuthResolver } from './datasource/graphql/resolver/auth.resolver';
 
 @Module({
   imports: [UserModule, PassportModule, JwtModule],
