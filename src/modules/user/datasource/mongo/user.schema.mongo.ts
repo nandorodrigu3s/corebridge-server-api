@@ -4,24 +4,27 @@ import { Date, Document } from 'mongoose';
 @Schema()
 export class User {
   @Prop({ required: true })
-  userId: string;
-
-  @Prop({ required: true })
   firstName: string;
 
   @Prop({ required: true })
   lastName: string;
 
   @Prop({ required: true })
-  assets: number;
+  username: string;
 
   @Prop({ required: true })
+  password: string;
+
+  @Prop({ required: true })
+  assets: number;
+
+  @Prop({ type: Date, required: true })
   createdAt: Date;
 
-  @Prop({ required: false })
+  @Prop({ type: Date, required: false })
   editedAt: Date;
 
-  @Prop({ required: false })
+  @Prop({ type: Date, required: false })
   canceledAt: Date;
 }
 

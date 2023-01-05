@@ -9,6 +9,7 @@ import { LocalStrategy } from '../auth/strategies/local.strategy';
 import { UserModule } from '../user/user.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { AppService } from './app.service';
       driver: ApolloDriver,
       typePaths: [join(process.cwd(), 'src/graphql/schema.gql')],
     }),
+    MongooseModule.forRoot('mongodb://localhost:27017/nest'),
   ],
   controllers: [AppController],
   providers: [AppService, LocalStrategy, JwtService],

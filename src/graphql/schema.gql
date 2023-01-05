@@ -15,18 +15,27 @@ type AuthData {
 }
 
 type Query {
-  getUser(token: String!, username: String!): User
+  getUser(username: String!): User
+  getByUserId(userId: String!): User
   customer(id: Int!): Customer!
 }
 
 type Mutation {
   login(authInput: Auth!): AuthData
+  createUser(createUserInput: CreateUser!): User
   createCustomer(createCustomerInput: CreateCustomerInput!): Customer!
   updateCustomer(updateCustomerInput: UpdateCustomerInput!): Customer!
   removeCustomer(id: Int!): Customer!
 }
 
 input Auth {
+  username: String!
+  password: String!
+}
+
+input CreateUser {
+  firstName: String!
+  lastName: String!
   username: String!
   password: String!
 }

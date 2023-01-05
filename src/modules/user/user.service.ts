@@ -1,11 +1,20 @@
 import { Injectable } from '@nestjs/common';
-import { UserMongoDbDatasource } from './datasource/mongo/user.db-datasource.mongo';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { UserEntity } from './datasource/mongo/user.schema.mongo';
+import { CreateUserModelToEntityMapper } from './mappers/create-user-model-to-entity.mapper';
+import { UserEntityToModelMapper } from './mappers/user-entity-to-model.mapper';
+import { CreateUserModel } from './model/create-user.model';
 import { UserModel } from './model/user.model';
-import { UserRepository } from './repository/user.repository';
+// import { UserRepository } from './repository/user.repository';
 
 @Injectable()
 export class UserService {
-  private userRepository = new UserRepository(new UserMongoDbDatasource());
+  // private userRepository = new UserRepository(new Model<UserEntity>());
+  constructor(@InjectModel('users') private userModel: Model<UserEntity>) {}
+  private createUserModelToEntity = new CreateUserModelToEntityMapper();
+  private userEntityToModelMapper: UserEntityToModelMapper =
+    new UserEntityToModelMapper();
   private readonly users: UserModel[] = [
     {
       firstName: 'Balakun',
@@ -41,6 +50,18 @@ export class UserService {
     },
   ];
 
+  async createUser(
+    createUserModel: CreateUserModel,
+  ): Promise<UserModel | null> {
+    const userEntity = await this.createUserModelToEntity.mapOne(
+      createUserModel,
+    );
+    if (!userEntity) return null;
+    const userEntityCreated = this.userModel.create(userEntity);
+    const userModel = this.userEntityToModelMapper.mapOne(userEntityCreated);
+    return userModel;
+  }
+
   async getUserByUsername(username: string): Promise<UserModel> {
     return await this.users.find((item) => item.username.includes(username));
   }
@@ -50,6 +71,6 @@ export class UserService {
   }
 
   async getByUserId(userId: string): Promise<UserModel> {
-    return await this.userRepository.findUserByUserId(userId);
+    return await this.userModel.findOne({ userId });
   }
 }

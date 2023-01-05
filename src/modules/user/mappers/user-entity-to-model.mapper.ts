@@ -2,14 +2,14 @@ import { UserEntity } from '../datasource/mongo/user.schema.mongo';
 import { UserModel } from '../model/user.model';
 
 export class UserEntityToModelMapper {
-  mapOne(userEntity: UserEntity): UserModel {
+  mapOne(userEntity: any): UserModel {
     const userModel: UserModel = {
-      userId: 'Ddsad',
-      username: 'dasdas',
-      firstName: 'dasdsa',
-      lastName: 'adsada',
-      password: 'dasdas',
-      assets: 0,
+      userId: userEntity._id.toString(),
+      username: userEntity._doc.username,
+      firstName: userEntity._doc.firstName,
+      lastName: userEntity._doc.lastName,
+      password: userEntity._doc.password,
+      assets: userEntity._doc.assets,
     };
 
     return userModel;
