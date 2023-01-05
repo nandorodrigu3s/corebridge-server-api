@@ -1,5 +1,3 @@
-import { Document } from 'mongoose';
-import { User, UserEntity } from '../datasource/mongo/user.schema.mongo';
 import { CreateUserModel } from '../model/create-user.model';
 import * as bcrypt from 'bcrypt';
 

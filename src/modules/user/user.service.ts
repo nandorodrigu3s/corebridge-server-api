@@ -57,13 +57,16 @@ export class UserService {
       createUserModel,
     );
     if (!userEntity) return null;
-    const userEntityCreated = this.userModel.create(userEntity);
-    const userModel = this.userEntityToModelMapper.mapOne(userEntityCreated);
+    const userEntityCreated = new this.userModel(userEntity);
+    const entityValues = await userEntityCreated.save();
+    const userModel = this.userEntityToModelMapper.mapOne(entityValues);
     return userModel;
   }
 
-  async getUserByUsername(username: string): Promise<UserModel> {
-    return await this.users.find((item) => item.username.includes(username));
+  async getUserByUsername(username: string): Promise<UserModel | null> {
+    const userEntity = await this.userModel.findOne({ username });
+    const userModel = this.userEntityToModelMapper.mapOne(userEntity);
+    return userModel;
   }
 
   async getUserById(userId: number): Promise<UserModel> {
