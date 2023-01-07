@@ -55,7 +55,7 @@ type Mutation {
   createUser(createUserInput: CreateUser!): User
   createCart(createCartInput: CreateCartInput!): Cart
   updateCart(updateCartInput: UpdateCartInput!): Cart
-  deleteCart: Cart!
+  deleteCart: Boolean!
 }
 
 input Auth {

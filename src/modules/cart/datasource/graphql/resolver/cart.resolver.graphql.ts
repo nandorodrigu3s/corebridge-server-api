@@ -19,7 +19,7 @@ export class CartResolver {
   async createCart(
     @Args('createCartInput') createCartInput: CreateCartInput,
     @Context() context,
-  ): Promise<Cart | null> {
+  ): Promise<Cart> {
     const { user } = context?.req;
     const createCartModel = this.createCartInputToModelMapper.mapOne(
       createCartInput,
@@ -66,16 +66,17 @@ export class CartResolver {
     return updatedCart;
   }
 
-  @Mutation(() => Cart)
+  @Mutation(() => Boolean)
   @UseGuards(GqlJWTAuthGuard)
   deleteCart(@Context() context): Promise<boolean> {
-    const { user } = context.req;
-    const deletedCart = this.cartService.deleteCart(user.userId);
-    if (!deletedCart) {
+    try {
+      const { user } = context.req;
+      const deletedCart = this.cartService.deleteCart(user.userId);
+      return deletedCart;
+    } catch (error) {
       throw new Error(
         'caramba manow, deu alguma treta aqui no #CR0003 rsrsrs!!',
       );
     }
-    return deletedCart;
   }
 }

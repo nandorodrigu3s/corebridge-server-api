@@ -19,25 +19,24 @@ export class CartService {
   private cartEntityToModelMapper: CartEntityToModelMapper =
     new CartEntityToModelMapper();
 
-  async create(createCartModel: CreateCartModel): Promise<CartModel | null> {
+  async create(createCartModel: CreateCartModel): Promise<CartModel> {
     try {
       const cartEntity =
         this.createCartModelToEntityMapper.mapOne(createCartModel);
-      if (!cartEntity) return null;
-      const cartEntityCreated = (
-        await this.cartModel.create(cartEntity)
-      ).save();
-      const cartModel = this.cartEntityToModelMapper.mapOne(cartEntityCreated);
+      if (!cartEntity) return { nfts: [] } as CartModel;
+      const cartEntityCreated = await this.cartModel.create(cartEntity);
+      const savedEntity = await cartEntityCreated.save();
+      const cartModel = this.cartEntityToModelMapper.mapOne(savedEntity);
       return cartModel;
     } catch (error) {
       console.log(error.message);
-      return null;
+      return { nfts: [] } as CartModel;
     }
   }
 
   async getCart(userId: string): Promise<CartModel | null> {
     const cartEntity: any = await this.cartModel.findOne({ userId });
-    if (!cartEntity) return null;
+    if (!cartEntity) return { nfts: [] } as CartModel;
     const cartModel = this.cartEntityToModelMapper.mapOne(cartEntity);
     return cartModel;
   }
@@ -49,7 +48,6 @@ export class CartService {
     let cartEntity: any = await this.cartModel.findOne({ userId });
     if (!cartEntity) return null;
     const nfts = [...cartEntity.nfts];
-    const tester = updateCartModel.type === UpdateCartType.ADD;
     let newNFTs = [];
     if (updateCartModel.type === UpdateCartType.ADD) {
       newNFTs = [...nfts, updateCartModel.nft];
@@ -80,10 +78,9 @@ export class CartService {
   async deleteCart(userId: string): Promise<boolean> {
     try {
       const deleted: any = await this.cartModel.deleteOne({ userId });
-      return true;
+      return deleted.deletedCount > 0;
     } catch (error) {
-      console.log(error);
-      return false;
+      throw new Error('caramba manow, deu alguma treta aqui no #CSV0001 O_O!!');
     }
   }
 }
