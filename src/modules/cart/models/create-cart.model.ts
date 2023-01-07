@@ -1,6 +1,5 @@
-import { NFTData } from '../../../system/models/nft-data.model';
+import { CartModel } from './cart.model';
 
-export class CreateCartModel {
+export class CreateCartModel extends CartModel {
   userId: string;
-  nfts: NFTData[];
 }

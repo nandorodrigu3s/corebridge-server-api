@@ -10,8 +10,8 @@ export class CreateUserModelToEntityMapper {
     const userEntity = {
       ...rest,
       password: passwordHash,
-      assets: 0,
-      createdAt: Date.now(),
+      countAssets: 0,
+      wallet: [],
     };
     // await bcrypt.genSalt(10, (errGen, salt) => {
     //   bcrypt.hash(password, salt, (errGen, passwordHash) => {

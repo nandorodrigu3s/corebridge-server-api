@@ -22,7 +22,7 @@ export class AuthService {
   }
 
   async findByUsername(username: string): Promise<UserModel> {
-    const user = await this.userService.getUserByUsername(username);
+    const user = await this.userService.getUserByUsername(username, false);
     return user;
   }
 

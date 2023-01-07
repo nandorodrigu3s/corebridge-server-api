@@ -5,7 +5,7 @@ export class CartEntityToModelMapper {
   mapOne(cartEntity: any): CartModel | null {
     if (!cartEntity) return null;
     const cartModel: CartModel = {
-      nfts: cartEntity._doc.nfts,
+      nfts: cartEntity.nfts,
     };
 
     return cartModel;

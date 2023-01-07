@@ -19,34 +19,38 @@ export class UserService {
     {
       firstName: 'Balakun',
       lastName: 'Trimbanum',
-      assets: 9,
+      countAssets: 9,
       password: 'plaft!@$##65G654',
       userId: 12,
       username: 'bronks',
+      wallet: [],
     },
     {
       firstName: 'Aleikan',
       lastName: 'Trimbanum',
-      assets: 19,
+      countAssets: 19,
       password: '!$pla#tyusta654',
       userId: 2,
       username: 'bronks1',
+      wallet: [],
     },
     {
       firstName: 'Hamanam',
       lastName: 'Trimbanum',
-      assets: 96,
+      countAssets: 96,
       password: 'plaft!KN54',
       userId: 1,
       username: 'bronks2',
+      wallet: [],
     },
     {
       firstName: 'Vatanuk',
       lastName: 'Trimbanum',
-      assets: 37,
+      countAssets: 37,
       password: 'i$#4dalDL$Askj@5',
       userId: 121,
       username: 'bronks3',
+      wallet: [],
     },
   ];
 
@@ -63,9 +67,15 @@ export class UserService {
     return userModel;
   }
 
-  async getUserByUsername(username: string): Promise<UserModel | null> {
+  async getUserByUsername(
+    username: string,
+    hidePassword = true,
+  ): Promise<UserModel | null> {
     const userEntity = await this.userModel.findOne({ username });
-    const userModel = this.userEntityToModelMapper.mapOne(userEntity);
+    const userModel = this.userEntityToModelMapper.mapOne(
+      userEntity,
+      hidePassword,
+    );
     return userModel;
   }
 

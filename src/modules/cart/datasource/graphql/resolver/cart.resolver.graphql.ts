@@ -1,5 +1,6 @@
 import { UseGuards } from '@nestjs/common';
 import { Resolver, Query, Mutation, Args, Int, Context } from '@nestjs/graphql';
+import { UpdateCartModel } from 'src/modules/cart/models/update-cart.model';
 import { GqlJWTAuthGuard } from '../../../../auth/guards/gql-jwt-auth.guard';
 import { CartService } from '../../../cart.service';
 import { CreateCartInputToModelMapper } from '../../../mappers/create-cart-input-to-model.graphql';
@@ -26,28 +27,55 @@ export class CartResolver {
     );
     const cart = await this.cartService.create(createCartModel);
     if (!cart) {
-      throw new Error('caramba manow, deu alguam treta aqui rsrsrs!!');
+      throw new Error(
+        'caramba manow, deu alguma treta aqui no #CR0001 rsrsrs!!',
+      );
     }
     return cart;
   }
 
-  @Query(() => [Cart], { name: 'cart' })
-  findAll() {
-    return this.cartService.findAll();
+  @Query(() => Cart, { nullable: true })
+  @UseGuards(GqlJWTAuthGuard)
+  async getCart(@Context() context) {
+    const { user } = context?.req;
+    const cart = await this.cartService.getCart(user.userId);
+    if (!cart) {
+      throw new Error(
+        'caramba manow, deu alguma treta aqui no #CR0002 rsrsrs!!',
+      );
+    }
+    return cart;
   }
 
-  @Query(() => Cart, { name: 'cart' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.cartService.findOne(id);
+  @Mutation(() => Cart, { nullable: true })
+  @UseGuards(GqlJWTAuthGuard)
+  updateCart(
+    @Args('updateCartInput') updateCartInput: UpdateCartInput,
+    @Context() context,
+  ): Promise<Cart | null> {
+    const { user } = context.req;
+    const updatedCart = this.cartService.updateCart(
+      user.userId,
+      updateCartInput as UpdateCartModel,
+    );
+    if (!updatedCart) {
+      throw new Error(
+        'caramba manow, deu alguma treta aqui no #CR0003 rsrsrs!!',
+      );
+    }
+    return updatedCart;
   }
 
   @Mutation(() => Cart)
-  updateCart(@Args('updateCartInput') updateCartInput: UpdateCartInput) {
-    return this.cartService.update(1, updateCartInput.nft);
-  }
-
-  @Mutation(() => Cart)
-  removeCart(@Args('id', { type: () => Int }) id: number) {
-    return this.cartService.remove(id);
+  @UseGuards(GqlJWTAuthGuard)
+  deleteCart(@Context() context): Promise<boolean> {
+    const { user } = context.req;
+    const deletedCart = this.cartService.deleteCart(user.userId);
+    if (!deletedCart) {
+      throw new Error(
+        'caramba manow, deu alguma treta aqui no #CR0003 rsrsrs!!',
+      );
+    }
+    return deletedCart;
   }
 }

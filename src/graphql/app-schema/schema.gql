@@ -1,19 +1,3 @@
-type User {
-  firstName: String!
-  lastName: String!
-  assets: Int
-}
-
-type Customer {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
-type AuthData {
-  token: String!
-  user: User!
-}
-
 type NFTCollection {
   created_date: DateTime!
   name: String!
@@ -43,6 +27,18 @@ type NFTData {
   price: Price
 }
 
+type User {
+  firstName: String!
+  lastName: String!
+  countAssets: Int
+  wallet: [NFTData!]
+}
+
+type AuthData {
+  token: String!
+  user: User!
+}
+
 type Cart {
   """Uma lista de NFTs adicionados ao carrinho"""
   nfts: [NFTData]!
@@ -51,19 +47,15 @@ type Cart {
 type Query {
   getUser(username: String!): User
   getByUserId(userId: String!): User
-  customer(id: Int!): Customer!
-  cart(id: Int!): Cart!
+  getCart: Cart
 }
 
 type Mutation {
   login(authInput: Auth!): AuthData
   createUser(createUserInput: CreateUser!): User
-  createCustomer(createCustomerInput: CreateCustomerInput!): Customer!
-  updateCustomer(updateCustomerInput: UpdateCustomerInput!): Customer!
-  removeCustomer(id: Int!): Customer!
   createCart(createCartInput: CreateCartInput!): Cart
-  updateCart(updateCartInput: UpdateCartInput!): Cart!
-  removeCart(id: Int!): Cart!
+  updateCart(updateCartInput: UpdateCartInput!): Cart
+  deleteCart: Cart!
 }
 
 input Auth {
@@ -76,17 +68,6 @@ input CreateUser {
   lastName: String!
   username: String!
   password: String!
-}
-
-input CreateCustomerInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
-input UpdateCustomerInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
 }
 
 input CreateCartInput {
@@ -121,4 +102,10 @@ input PriceInput {
 input UpdateCartInput {
   """Um NFT para ser atualizado no carrinho"""
   nft: NFTDataInput
+  type: UpdateCartType!
+}
+
+enum UpdateCartType {
+  ADD
+  REMOVE
 }

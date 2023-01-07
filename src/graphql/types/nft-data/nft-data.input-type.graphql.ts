@@ -20,10 +20,10 @@ export class NFTDataInput {
   external_link: string;
   @Field()
   permalink: string;
-  @Field()
+  @Field(() => NFTCollectionInput)
   collection: NFTCollectionInput;
   @Field()
   token_id: string;
-  @Field()
+  @Field(() => PriceInput)
   price: PriceInput;
 }
