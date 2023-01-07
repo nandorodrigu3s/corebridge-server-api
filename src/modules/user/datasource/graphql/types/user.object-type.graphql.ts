@@ -1,4 +1,5 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { NFTData } from '../../../../../graphql/types/nft-data/nft-data.object-type.graphql';
 
 @ObjectType()
 export class User {
@@ -9,5 +10,8 @@ export class User {
   lastName: string;
 
   @Field(() => Int, { nullable: true })
-  assets: number;
+  countAssets: number;
+
+  @Field(() => [NFTData], { nullable: true })
+  wallet: NFTData[];
 }

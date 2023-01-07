@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { UserModel } from '../user/model/user.model';
+import { UserModel } from '../user/models/user.model';
 import { UserService } from '../user/user.service';
 import { AuthModel } from './model/auth.model';
 
@@ -16,13 +16,13 @@ export class AuthService {
     const payload = { username: user.username, sub: user.userId };
     const newToken = this.jwtService.sign(payload, {
       secret: process.env.JWT_SECRET,
-      expiresIn: 35,
+      expiresIn: '7d',
     });
     return { user: result, token: newToken };
   }
 
   async findByUsername(username: string): Promise<UserModel> {
-    const user = await this.userService.getUserByUsername(username);
+    const user = await this.userService.getUserByUsername(username, false);
     return user;
   }
 

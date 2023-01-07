@@ -7,8 +7,8 @@ import { printSchema } from 'graphql';
 import { UserResolver } from './modules/user/datasource/graphql/resolver/user.resolver';
 import * as fs from 'fs';
 import { promisify } from 'util';
-import { CustomerResolver } from './modules/customer/graphql/resolver/customer.resolver';
 import { AuthResolver } from './modules/auth/datasource/graphql/resolver/auth.resolver';
+import { CartResolver } from './modules/cart/datasource/graphql/resolver/cart.resolver.graphql';
 
 const checkIfFileOrDirectoryExists = (path: string): boolean => {
   return fs.existsSync(path);
@@ -36,10 +36,14 @@ async function generateSchema() {
   const schema = await gqlSchemaFactory.create([
     AuthResolver,
     UserResolver,
-    CustomerResolver,
+    CartResolver,
   ]);
   console.log(printSchema(schema));
-  await createFile('./src/graphql/', 'schema.gql', printSchema(schema));
+  await createFile(
+    './src/graphql/app-schema',
+    'schema.gql',
+    printSchema(schema),
+  );
 }
 setTimeout(async () => {
   await generateSchema();

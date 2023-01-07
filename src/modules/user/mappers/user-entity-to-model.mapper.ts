@@ -1,15 +1,16 @@
-import { UserEntity } from '../datasource/mongo/user.schema.mongo';
-import { UserModel } from '../model/user.model';
+import { UserModel } from '../models/user.model';
 
 export class UserEntityToModelMapper {
-  mapOne(userEntity: UserEntity): UserModel {
+  mapOne(userEntity: any, hidePassword = true): UserModel | null {
+    if (!userEntity) return null;
     const userModel: UserModel = {
-      userId: 'Ddsad',
-      username: 'dasdas',
-      firstName: 'dasdsa',
-      lastName: 'adsada',
-      password: 'dasdas',
-      assets: 0,
+      userId: userEntity.id,
+      username: userEntity.username,
+      firstName: userEntity.firstName,
+      lastName: userEntity.lastName,
+      password: hidePassword ? '' : userEntity.password,
+      countAssets: userEntity.countAssets,
+      wallet: userEntity.wallet,
     };
 
     return userModel;
