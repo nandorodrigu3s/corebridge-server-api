@@ -18,7 +18,8 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "reload:schema": "rm -r ./src/graphql/schema.gql && npx ts-node ./src/genetare-types && yarn start"
+    "load:schema": "npx ts-node ./src/genetare-types && yarn start",
+    "reload:schema": "rm -r ./src/graphql/app-schema/schema.gql && npx ts-node ./src/genetare-types && yarn start"
   },
   "dependencies": {
     "@nestjs/apollo": "^10.1.7",

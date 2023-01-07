@@ -1,4 +1,4 @@
-import { CreateUserModel } from '../model/create-user.model';
+import { CreateUserModel } from '../models/create-user.model';
 import * as bcrypt from 'bcrypt';
 
 export class CreateUserModelToEntityMapper {

@@ -1,5 +1,5 @@
 import { UserEntity } from '../datasource/mongo/user.schema.mongo';
-import { UserModel } from '../model/user.model';
+import { UserModel } from '../models/user.model';
 
 export class UserEntityToModelMapper {
   mapOne(userEntity: any): UserModel | null {

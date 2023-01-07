@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Date, Document } from 'mongoose';
+import { NFTData } from '../../../../datasource/mongodb/schemas/nft-data.schema.mongo';
 
 @Schema()
 export class Cart {
@@ -7,12 +8,12 @@ export class Cart {
   userId: string;
 
   @Prop({ required: true })
-  nfts: string[];
+  nfts: NFTData[];
 
-  @Prop({ required: true })
+  @Prop({ type: Date, default: Date.now, required: false })
   createdAt: Date;
 
-  @Prop({ required: false })
+  @Prop({ type: Date, required: false })
   canceledAt: Date;
 }
 

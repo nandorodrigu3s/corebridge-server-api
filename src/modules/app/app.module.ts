@@ -10,15 +10,17 @@ import { UserModule } from '../user/user.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
+import { CartModule } from '../cart/cart.module';
 
 @Module({
   imports: [
     PassportModule,
     UserModule,
     AuthModule,
+    CartModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      typePaths: [join(process.cwd(), 'src/graphql/schema.gql')],
+      typePaths: [join(process.cwd(), 'src/graphql/app-schema/schema.gql')],
     }),
     MongooseModule.forRoot('mongodb://localhost:27017/nest'),
   ],

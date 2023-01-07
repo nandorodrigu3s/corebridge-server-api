@@ -4,8 +4,8 @@ import { Model } from 'mongoose';
 import { UserEntity } from './datasource/mongo/user.schema.mongo';
 import { CreateUserModelToEntityMapper } from './mappers/create-user-model-to-entity.mapper';
 import { UserEntityToModelMapper } from './mappers/user-entity-to-model.mapper';
-import { CreateUserModel } from './model/create-user.model';
-import { UserModel } from './model/user.model';
+import { CreateUserModel } from './models/create-user.model';
+import { UserModel } from './models/user.model';
 // import { UserRepository } from './repository/user.repository';
 
 @Injectable()

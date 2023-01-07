@@ -1,8 +1,11 @@
-import { CreateCartInput } from './create-cart.input-type.graphql';
-import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
+import { InputType, Field } from '@nestjs/graphql';
+import { NFTDataInput } from '../../../../../graphql/types/nft-data/nft-data.input-type.graphql';
 
 @InputType()
-export class UpdateCartInput extends PartialType(CreateCartInput) {
-  @Field(() => Int)
-  id: number;
+export class UpdateCartInput {
+  @Field(() => NFTDataInput, {
+    nullable: true,
+    description: 'Um NFT para ser atualizado no carrinho',
+  })
+  nft: NFTDataInput;
 }

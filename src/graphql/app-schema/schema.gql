@@ -1,0 +1,124 @@
+type User {
+  firstName: String!
+  lastName: String!
+  assets: Int
+}
+
+type Customer {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type AuthData {
+  token: String!
+  user: User!
+}
+
+type NFTCollection {
+  created_date: DateTime!
+  name: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Price {
+  label: String!
+  value: Float!
+}
+
+type NFTData {
+  id: Int!
+  num_sales: Int!
+  category: String!
+  image_url: String!
+  name: String!
+  description: String!
+  external_link: String!
+  permalink: String!
+  token_id: String!
+  collection: NFTCollection!
+  price: Price
+}
+
+type Cart {
+  """Uma lista de NFTs adicionados ao carrinho"""
+  nfts: [NFTData]!
+}
+
+type Query {
+  getUser(username: String!): User
+  getByUserId(userId: String!): User
+  customer(id: Int!): Customer!
+  cart(id: Int!): Cart!
+}
+
+type Mutation {
+  login(authInput: Auth!): AuthData
+  createUser(createUserInput: CreateUser!): User
+  createCustomer(createCustomerInput: CreateCustomerInput!): Customer!
+  updateCustomer(updateCustomerInput: UpdateCustomerInput!): Customer!
+  removeCustomer(id: Int!): Customer!
+  createCart(createCartInput: CreateCartInput!): Cart
+  updateCart(updateCartInput: UpdateCartInput!): Cart!
+  removeCart(id: Int!): Cart!
+}
+
+input Auth {
+  username: String!
+  password: String!
+}
+
+input CreateUser {
+  firstName: String!
+  lastName: String!
+  username: String!
+  password: String!
+}
+
+input CreateCustomerInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateCustomerInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateCartInput {
+  """Uma lista de NFTs para serem adicionadas ao carrinho"""
+  nfts: [NFTDataInput]!
+}
+
+input NFTDataInput {
+  id: Int!
+  num_sales: Int!
+  category: String!
+  image_url: String!
+  name: String!
+  description: String!
+  external_link: String!
+  permalink: String!
+  collection: NFTCollectionInput!
+  token_id: String!
+  price: PriceInput!
+}
+
+input NFTCollectionInput {
+  created_date: DateTime!
+  name: String!
+}
+
+input PriceInput {
+  label: String!
+  value: Float!
+}
+
+input UpdateCartInput {
+  """Um NFT para ser atualizado no carrinho"""
+  nft: NFTDataInput
+}
