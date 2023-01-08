@@ -1,14 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { NFTData } from '../../system/models/nft-data.model';
 import { CartEntity } from './datasource/mongo/cart.schema.mongo';
 import { CreateCartModelToEntityMapper } from './mappers/create-cart-model-to-entity.mapper';
 import { CartEntityToModelMapper } from './mappers/cart-entity-to-model.mapper';
 import { CreateCartModel } from './models/create-cart.model';
 import { CartModel } from './models/cart.model';
 import { UpdateCartModel } from './models/update-cart.model';
-import { UpdateCartType } from './datasource/graphql/types/create-cart.enum.graphql';
+import { UpdateCartType } from './models/update-cart.enum';
 
 @Injectable()
 export class CartService {

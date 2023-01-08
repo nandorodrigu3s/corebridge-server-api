@@ -1,9 +1,5 @@
 import { registerEnumType } from '@nestjs/graphql';
-
-export enum UpdateCartType {
-  ADD = 'ADD',
-  REMOVE = 'REMOVE',
-}
+import { UpdateCartType } from '../../../models/update-cart.enum';
 
 registerEnumType(UpdateCartType, {
   name: 'UpdateCartType',
