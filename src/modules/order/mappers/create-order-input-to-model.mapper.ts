@@ -1,6 +1,6 @@
 import { CreateOrderInput } from '../datasource/graphql/types/create-order.input-type.graphql';
 import { CreateOrderModel } from '../models/create-order.model';
-import { StatusType } from '../models/status.enum';
+import { OrderStatusType } from '../models/order-status.enum';
 
 export class CreateOrderInputToModelMapper {
   mapOne(
@@ -11,7 +11,7 @@ export class CreateOrderInputToModelMapper {
     const createOrderModel = {
       userId,
       ...createOrderInput,
-      status: StatusType.COMPLETE,
+      status: OrderStatusType.COMPLETE,
     };
     return createOrderModel;
   }

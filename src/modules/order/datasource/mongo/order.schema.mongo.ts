@@ -18,10 +18,10 @@ export class Order {
   })
   status: string;
 
-  @Prop({ required: true, type: Price })
+  @Prop({ required: true })
   totalPayment: Price;
 
-  @Prop({ required: false, type: Price })
+  @Prop({ required: false })
   discount: Price;
 
   @Prop({ type: Date, required: false })

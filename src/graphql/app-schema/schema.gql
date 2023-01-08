@@ -44,6 +44,22 @@ type Cart {
   nfts: [NFTData]!
 }
 
+type Order {
+  orderId: String!
+  nfts: [NFTData!]!
+  status: OrderStatusType!
+  totalPayment: Price!
+  discount: Price
+  canceledAt: DateTime
+}
+
+enum OrderStatusType {
+  COMPLETE
+  PENDING
+  CANCELED
+  FAILED
+}
+
 type Query {
   getUser(username: String!): User
   getByUserId(userId: String!): User
@@ -52,10 +68,11 @@ type Query {
 
 type Mutation {
   login(authInput: Auth!): AuthData
-  createUser(createUserInput: CreateUser!): User
+  createUser(createUserInput: CreateUserInput!): User
   createCart(createCartInput: CreateCartInput!): Cart
   updateCart(updateCartInput: UpdateCartInput!): Cart
   deleteCart: Boolean!
+  createOrder(createOrderInput: CreateOrderInput!): Order
 }
 
 input Auth {
@@ -63,7 +80,7 @@ input Auth {
   password: String!
 }
 
-input CreateUser {
+input CreateUserInput {
   firstName: String!
   lastName: String!
   username: String!
@@ -108,4 +125,10 @@ input UpdateCartInput {
 enum UpdateCartType {
   ADD
   REMOVE
+}
+
+input CreateOrderInput {
+  nfts: [NFTDataInput!]!
+  totalPayment: PriceInput!
+  discount: PriceInput
 }

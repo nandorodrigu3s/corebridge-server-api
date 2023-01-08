@@ -1,6 +1,6 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { NFTDataInput } from 'src/graphql/types/nft-data/nft-data.input-type.graphql';
-import { PriceInput } from 'src/graphql/types/price/price.input-type.graphql';
+import { NFTDataInput } from '../../../../../graphql/types/nft-data/nft-data.input-type.graphql';
+import { PriceInput } from '../../../../../graphql/types/price/price.input-type.graphql';
 
 @InputType()
 export class CreateOrderInput {

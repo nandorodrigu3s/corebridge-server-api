@@ -1,6 +1,6 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { UpdateCartType } from '../../../models/update-cart.enum';
 import { NFTDataInput } from '../../../../../graphql/types/nft-data/nft-data.input-type.graphql';
+import { UpdateCartType } from './update-cart.enum.graphql';
 
 @InputType()
 export class UpdateCartInput {

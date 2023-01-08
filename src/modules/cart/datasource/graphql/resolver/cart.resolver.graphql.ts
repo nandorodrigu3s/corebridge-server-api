@@ -1,6 +1,6 @@
 import { UseGuards } from '@nestjs/common';
 import { Resolver, Query, Mutation, Args, Int, Context } from '@nestjs/graphql';
-import { UpdateCartModel } from 'src/modules/cart/models/update-cart.model';
+import { UpdateCartModel } from '../../../models/update-cart.model';
 import { GqlJWTAuthGuard } from '../../../../auth/guards/gql-jwt-auth.guard';
 import { CartService } from '../../../cart.service';
 import { CreateCartInputToModelMapper } from '../../../mappers/create-cart-input-to-model.graphql';

@@ -1,20 +1,20 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { NFTDataInput } from '../../../../../graphql/types/nft-data/nft-data.input-type.graphql';
-import { PriceInput } from '../../../../../graphql/types/price/price.input-type.graphql';
-import { StatusType } from '../../../models/status.enum';
+import { NFTData } from '../../../../../graphql/types/nft-data/nft-data.object-type.graphql';
+import { Price } from '../../../../../graphql/types/price/price.object-type.graphql';
+import { OrderStatusType } from './order-status.enum.graphql';
 
 @ObjectType()
 export class Order {
   @Field()
   orderId: string;
-  @Field(() => [NFTDataInput])
-  nfts: NFTDataInput[];
-  @Field(() => StatusType)
-  status: StatusType;
-  @Field(() => PriceInput)
-  totalPayment: PriceInput;
-  @Field(() => PriceInput, { nullable: true })
-  discount?: PriceInput;
+  @Field(() => [NFTData])
+  nfts: NFTData[];
+  @Field(() => OrderStatusType)
+  status: OrderStatusType;
+  @Field(() => Price)
+  totalPayment: Price;
+  @Field(() => Price, { nullable: true })
+  discount?: Price;
   @Field(() => Date, { nullable: true })
   canceledAt?: Date;
 }

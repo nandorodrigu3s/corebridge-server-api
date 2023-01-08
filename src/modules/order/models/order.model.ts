@@ -1,12 +1,12 @@
 import { NFTData } from 'src/system/models/nft-data.model';
 import { Price } from 'src/system/models/price.model';
-import { StatusType } from './status.enum';
+import { OrderStatusType } from './order-status.enum';
 
 export class OrderModel {
   userId: string;
   orderId: string;
   nfts: NFTData[];
-  status: StatusType;
+  status: OrderStatusType;
   totalPayment: Price;
   discount?: Price;
   createdAt: Date;
