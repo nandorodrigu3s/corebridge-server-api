@@ -61,8 +61,8 @@ enum OrderStatusType {
 }
 
 type Query {
-  getUser(username: String!): User
-  getByUserId(userId: String!): User
+  getByUsername(username: String!): User
+  getUser: User
   getCart: Cart
 }
 
