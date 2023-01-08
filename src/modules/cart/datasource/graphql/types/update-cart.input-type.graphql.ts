@@ -8,7 +8,7 @@ export class UpdateCartInput {
     nullable: true,
     description: 'Um NFT para ser atualizado no carrinho',
   })
-  nft: Partial<NFTDataInput>;
+  nft: NFTDataInput;
   @Field(() => UpdateCartType)
   type: UpdateCartType;
 }

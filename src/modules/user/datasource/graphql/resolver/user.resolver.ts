@@ -30,4 +30,13 @@ export class UserResolver {
     const user = await this.userService.getByUserId(userId);
     return user;
   }
+
+  // @Mutation((returns) => User, { nullable: true })
+  // @UseGuards(GqlJWTAuthGuard)
+  // async updateUser(
+  //   @Args('updateUserInput') updateUserInput: UpdateUserInput,
+  // ): Promise<User | null> {
+  //   const user = await this.userService.createUser(updateUserInput);
+  //   return user;
+  // }
 }

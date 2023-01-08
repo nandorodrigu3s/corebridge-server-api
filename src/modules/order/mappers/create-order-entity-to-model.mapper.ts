@@ -4,6 +4,7 @@ import { OrderModel } from '../models/order.model';
 
 export class CreateOrderEntityToModelMapper {
   mapOne(createOrderEntity: any): OrderModel {
+    if (!createOrderEntity) return null;
     const orderModel = {
       orderId: createOrderEntity._id,
       userId: createOrderEntity.userId,
