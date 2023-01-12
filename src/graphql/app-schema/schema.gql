@@ -31,7 +31,7 @@ type User {
   firstName: String!
   lastName: String!
   countAssets: Int
-  wallet: [NFTData!]
+  wallet: [NFTData]!
 }
 
 type AuthData {

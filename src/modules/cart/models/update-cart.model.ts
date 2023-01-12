@@ -3,5 +3,5 @@ import { UpdateCartType } from './update-cart.enum';
 
 export class UpdateCartModel {
   type: UpdateCartType;
-  nft: Partial<NFTData>;
+  nft: NFTData;
 }

@@ -12,6 +12,6 @@ export class User {
   @Field(() => Int, { nullable: true })
   countAssets: number;
 
-  @Field(() => [NFTData], { nullable: true })
+  @Field(() => [NFTData], { nullable: 'items' })
   wallet: NFTData[];
 }

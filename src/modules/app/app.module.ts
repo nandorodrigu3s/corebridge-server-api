@@ -12,9 +12,11 @@ import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { CartModule } from '../cart/cart.module';
 import { OrderModule } from '../order/order.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     PassportModule,
     UserModule,
     AuthModule,
@@ -24,7 +26,7 @@ import { OrderModule } from '../order/order.module';
       driver: ApolloDriver,
       typePaths: [join(process.cwd(), 'src/graphql/app-schema/schema.gql')],
     }),
-    MongooseModule.forRoot('mongodb://localhost:27017/nest'),
+    MongooseModule.forRoot(`${process.env.MONGODB_URL}test`),
   ],
   controllers: [AppController],
   providers: [AppService, LocalStrategy, JwtService],

@@ -45,7 +45,13 @@ export class CartService {
     updateCartModel: UpdateCartModel,
   ): Promise<CartModel | null> {
     let cartEntity: any = await this.cartModel.findOne({ userId });
-    if (!cartEntity) return null;
+    if (!cartEntity) {
+      const createCartModel = {
+        nfts: [updateCartModel.nft],
+        userId,
+      };
+      return await this.create(createCartModel);
+    }
     const nfts = [...cartEntity.nfts];
     let newNFTs = [];
     if (updateCartModel.type === UpdateCartType.ADD) {
@@ -60,8 +66,8 @@ export class CartService {
         (item) => item.token_id !== updateCartModel.nft.token_id,
       );
       if (!newNFTs.length) {
-        this.cartModel.deleteOne({ userId });
-        cartEntity = null;
+        await this.cartModel.deleteOne({ userId });
+        cartEntity = {} as CartModel;
       } else {
         cartEntity = await this.cartModel.findOneAndUpdate(
           { userId },
