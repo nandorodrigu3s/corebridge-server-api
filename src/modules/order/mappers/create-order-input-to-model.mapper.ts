@@ -12,6 +12,7 @@ export class CreateOrderInputToModelMapper {
       userId,
       ...createOrderInput,
       status: OrderStatusType.COMPLETE,
+      discount: createOrderInput?.discount ?? null,
     };
     return createOrderModel;
   }

@@ -4,6 +4,7 @@ import { OrderModel } from '../models/order.model';
 
 export class CreateOrderEntityToModelMapper {
   mapOne(createOrderEntity: any): OrderModel {
+    const discount = createOrderEntity?.discount ?? null;
     if (!createOrderEntity) return null;
     const orderModel = {
       orderId: createOrderEntity._id,
@@ -14,10 +15,7 @@ export class CreateOrderEntityToModelMapper {
         value: toFloatFixed(createOrderEntity.totalPayment.value, 2),
       },
       status: OrderStatusType[`${createOrderEntity.status}`],
-      discount: {
-        label: createOrderEntity.discount.label,
-        value: toFloatFixed(createOrderEntity.discount.value, 2),
-      },
+      discount,
       canceledAt: createOrderEntity.canceledAt,
       createdAt: createOrderEntity.createdAt,
     };

@@ -35,7 +35,7 @@ export class OrderService {
     if (orderModel && orderModel.status === OrderStatusType.COMPLETE) {
       const { userId } = orderModel;
       const user = await this.userService.getByUserId(userId);
-      user.wallet = orderModel.nfts;
+      user.wallet = [...user.wallet, ...orderModel.nfts];
       const newUserEntity = await this.updateUserModelToEntityMapper.mapOne(
         user,
       );

@@ -14,6 +14,7 @@ export class CreateOrderModelToEntityMapper {
     const orderEntity = {
       ...createOrder,
       status: MongoOrderStatusType[enumMongoIndex],
+      discount: createOrder?.discount ?? null,
     };
     return orderEntity;
   }
