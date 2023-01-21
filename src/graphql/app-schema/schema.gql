@@ -61,6 +61,7 @@ enum OrderStatusType {
 }
 
 type Query {
+  listNFTs: [NFTData]
   getByUsername(username: String!): User
   getUser: User
   getCart: Cart

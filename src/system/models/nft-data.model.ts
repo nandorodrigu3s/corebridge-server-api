@@ -14,3 +14,7 @@ export interface NFTData {
   token_id: string;
   price: Price;
 }
+
+export interface NFTFullApiData {
+  [key: string]: any;
+}
