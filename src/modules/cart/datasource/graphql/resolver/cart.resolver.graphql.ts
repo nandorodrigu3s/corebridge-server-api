@@ -1,6 +1,6 @@
 import { UseGuards } from '@nestjs/common';
 import { Resolver, Query, Mutation, Args, Int, Context } from '@nestjs/graphql';
-import { UpdateCartModel } from 'src/modules/cart/models/update-cart.model';
+import { UpdateCartModel } from '../../../models/update-cart.model';
 import { GqlJWTAuthGuard } from '../../../../auth/guards/gql-jwt-auth.guard';
 import { CartService } from '../../../cart.service';
 import { CreateCartInputToModelMapper } from '../../../mappers/create-cart-input-to-model.graphql';
@@ -49,33 +49,37 @@ export class CartResolver {
 
   @Mutation(() => Cart, { nullable: true })
   @UseGuards(GqlJWTAuthGuard)
-  updateCart(
+  async updateCart(
     @Args('updateCartInput') updateCartInput: UpdateCartInput,
     @Context() context,
   ): Promise<Cart | null> {
-    const { user } = context.req;
-    const updatedCart = this.cartService.updateCart(
-      user.userId,
-      updateCartInput as UpdateCartModel,
-    );
-    if (!updatedCart) {
+    try {
+      const { user } = context.req;
+      const updatedCart = await this.cartService.updateCart(
+        user.userId,
+        updateCartInput as UpdateCartModel,
+      );
+      if (!updatedCart) {
+        throw new Error();
+      }
+      return updatedCart;
+    } catch (error) {
       throw new Error(
         'caramba manow, deu alguma treta aqui no #CR0003 rsrsrs!!',
       );
     }
-    return updatedCart;
   }
 
   @Mutation(() => Boolean)
   @UseGuards(GqlJWTAuthGuard)
-  deleteCart(@Context() context): Promise<boolean> {
+  async deleteCart(@Context() context): Promise<boolean> {
     try {
       const { user } = context.req;
-      const deletedCart = this.cartService.deleteCart(user.userId);
+      const deletedCart = await this.cartService.deleteCart(user.userId);
       return deletedCart;
     } catch (error) {
       throw new Error(
-        'caramba manow, deu alguma treta aqui no #CR0003 rsrsrs!!',
+        'caramba manow, deu alguma treta aqui no #CR0004 rsrsrs!!',
       );
     }
   }

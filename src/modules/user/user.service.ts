@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UserEntity } from './datasource/mongo/user.schema.mongo';
 import { CreateUserModelToEntityMapper } from './mappers/create-user-model-to-entity.mapper';
+import { UpdateUserModelToEntityMapper } from './mappers/update-user-model-to-entity.mapper';
 import { UserEntityToModelMapper } from './mappers/user-entity-to-model.mapper';
 import { CreateUserModel } from './models/create-user.model';
 import { UserModel } from './models/user.model';
@@ -15,6 +16,9 @@ export class UserService {
   private createUserModelToEntity = new CreateUserModelToEntityMapper();
   private userEntityToModelMapper: UserEntityToModelMapper =
     new UserEntityToModelMapper();
+  private updateUserModelToEntityMapper: UpdateUserModelToEntityMapper =
+    new UpdateUserModelToEntityMapper();
+
   private readonly users: UserModel[] = [
     {
       firstName: 'Balakun',
@@ -80,10 +84,29 @@ export class UserService {
   }
 
   async getUserById(userId: number): Promise<UserModel> {
-    return await this.users.find((item) => item.userId === userId);
+    const userEntity = await this.users.find((item) => item.userId === userId);
+    const userModel = this.userEntityToModelMapper.mapOne(userEntity);
+    return userModel;
   }
 
   async getByUserId(userId: string): Promise<UserModel> {
-    return await this.userModel.findOne({ userId });
+    const userEntity = await this.userModel.findOne({ userId });
+    const userModel = this.userEntityToModelMapper.mapOne(userEntity);
+    return userModel;
+  }
+
+  async updateUser(updateUserModel: UserModel): Promise<UserModel | null> {
+    const { userId } = updateUserModel;
+    const userEntity = await this.updateUserModelToEntityMapper.mapOne(
+      updateUserModel,
+    );
+    if (!userEntity) return null;
+    const userEntityUpdated = await this.userModel.findOneAndUpdate(
+      { userId },
+      { ...userEntity },
+      { returnDocument: 'after' },
+    );
+    const userModel = this.userEntityToModelMapper.mapOne(userEntityUpdated);
+    return userModel;
   }
 }

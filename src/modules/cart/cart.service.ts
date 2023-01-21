@@ -1,14 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { NFTData } from '../../system/models/nft-data.model';
 import { CartEntity } from './datasource/mongo/cart.schema.mongo';
 import { CreateCartModelToEntityMapper } from './mappers/create-cart-model-to-entity.mapper';
 import { CartEntityToModelMapper } from './mappers/cart-entity-to-model.mapper';
 import { CreateCartModel } from './models/create-cart.model';
 import { CartModel } from './models/cart.model';
 import { UpdateCartModel } from './models/update-cart.model';
-import { UpdateCartType } from './datasource/graphql/types/create-cart.enum.graphql';
+import { UpdateCartType } from './models/update-cart.enum';
 
 @Injectable()
 export class CartService {
@@ -46,7 +45,13 @@ export class CartService {
     updateCartModel: UpdateCartModel,
   ): Promise<CartModel | null> {
     let cartEntity: any = await this.cartModel.findOne({ userId });
-    if (!cartEntity) return null;
+    if (!cartEntity) {
+      const createCartModel = {
+        nfts: [updateCartModel.nft],
+        userId,
+      };
+      return await this.create(createCartModel);
+    }
     const nfts = [...cartEntity.nfts];
     let newNFTs = [];
     if (updateCartModel.type === UpdateCartType.ADD) {
@@ -61,8 +66,8 @@ export class CartService {
         (item) => item.token_id !== updateCartModel.nft.token_id,
       );
       if (!newNFTs.length) {
-        this.cartModel.deleteOne({ userId });
-        cartEntity = null;
+        await this.cartModel.deleteOne({ userId });
+        cartEntity = {} as CartModel;
       } else {
         cartEntity = await this.cartModel.findOneAndUpdate(
           { userId },

@@ -9,6 +9,7 @@ import * as fs from 'fs';
 import { promisify } from 'util';
 import { AuthResolver } from './modules/auth/datasource/graphql/resolver/auth.resolver';
 import { CartResolver } from './modules/cart/datasource/graphql/resolver/cart.resolver.graphql';
+import { OrderResolver } from './modules/order/datasource/graphql/resolver/order.resolver';
 
 const checkIfFileOrDirectoryExists = (path: string): boolean => {
   return fs.existsSync(path);
@@ -37,6 +38,7 @@ async function generateSchema() {
     AuthResolver,
     UserResolver,
     CartResolver,
+    OrderResolver,
   ]);
   console.log(printSchema(schema));
   await createFile(
