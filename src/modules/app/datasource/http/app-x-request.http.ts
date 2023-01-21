@@ -57,34 +57,45 @@ export class AppXRequestHttp {
         include_orders: false,
         ...params,
       };
-      const data = await lastValueFrom(
+      const result = await lastValueFrom(
         this.httpService
           .get<R>(
             this.url + this.path,
-            this.buildParams<T>({params: mergeParams, config})
+            this.buildParams<T>({ params: mergeParams, config })
           )
           .pipe(
             catchError((error: AxiosError) => {
-              throw 'An error happened!';
+              throw 'Ops! Algo deu errado #COD_XRQT0001';
             }),
           ),
       );
-      return data?.data;
+      return result?.data;
     } catch (error) {
-      throw 'Ops! parece que algo deu errado';
+      throw 'Ops! parece que algo deu errado #COD_XRQT0002';
     }
   }
 
-  appXPost<T, R>(
+  async appXPost<T, R>(
     data?: T,
     config?: AxiosRequestConfig,
-  ): Observable<AxiosResponse<R>> {
-    return this.httpService
-      .post(
-        this.url + this.path,
-        this.buildParams<T>({data, config})
-      )
-      .pipe(map((response) => response.data));
+  ): Promise<R> {
+    try {
+      const result = await lastValueFrom(
+        this.httpService
+          .post<R>(
+            this.url + this.path,
+            this.buildParams<T>({ data, config })
+          )
+          .pipe(
+            catchError((error: AxiosError) => {
+              throw 'Ops! Algo deu errado #COD_XRQT0003';
+            }),
+          ),
+      );
+      return result?.data;
+    } catch (error) {
+      throw 'Ops! parece que algo deu errado #COD_XRQT0004';
+    }
   }
 
 }
