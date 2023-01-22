@@ -10,6 +10,7 @@ import { promisify } from 'util';
 import { AuthResolver } from './modules/auth/datasource/graphql/resolver/auth.resolver';
 import { CartResolver } from './modules/cart/datasource/graphql/resolver/cart.resolver.graphql';
 import { OrderResolver } from './modules/order/datasource/graphql/resolver/order.resolver';
+import { AppResolver } from './modules/app/datasource/graphql/app.resolver.graphql';
 
 const checkIfFileOrDirectoryExists = (path: string): boolean => {
   return fs.existsSync(path);
@@ -35,6 +36,7 @@ async function generateSchema() {
 
   const gqlSchemaFactory = app.get(GraphQLSchemaFactory);
   const schema = await gqlSchemaFactory.create([
+    AppResolver,
     AuthResolver,
     UserResolver,
     CartResolver,

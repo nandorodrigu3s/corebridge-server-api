@@ -13,6 +13,10 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { CartModule } from '../cart/cart.module';
 import { OrderModule } from '../order/order.module';
 import { ConfigModule } from '@nestjs/config';
+import { HttpModule } from '@nestjs/axios';
+import { AppXRequestHttp } from './datasource/http/app-x-request.http';
+import { AppResolver } from './datasource/graphql/app.resolver.graphql';
+import { NFTDTOToModelMapper } from './mappers/nft-list-dto-to-model.mapper';
 
 @Module({
   imports: [
@@ -22,13 +26,21 @@ import { ConfigModule } from '@nestjs/config';
     AuthModule,
     CartModule,
     OrderModule,
+    HttpModule,
+    MongooseModule.forRoot(`${process.env.MONGODB_URL}`),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       typePaths: [join(process.cwd(), 'src/graphql/app-schema/schema.gql')],
     }),
-    MongooseModule.forRoot(`${process.env.MONGODB_URL}test`),
   ],
   controllers: [AppController],
-  providers: [AppService, LocalStrategy, JwtService],
+  providers: [
+    AppService,
+    AppResolver,
+    LocalStrategy,
+    JwtService,
+    AppXRequestHttp,
+    NFTDTOToModelMapper
+  ],
 })
 export class AppModule {}
