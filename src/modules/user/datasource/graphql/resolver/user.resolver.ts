@@ -19,8 +19,10 @@ export class UserResolver {
 
   @Query((returns) => User, { nullable: true })
   @UseGuards(GqlJWTAuthGuard)
-  async getByUsername(@Args('username') name: string): Promise<User | null> {
-    const user = await this.userService.getUserByUsername(name);
+  async getByUsername(
+    @Args('username') username: string,
+  ): Promise<User | null> {
+    const user = await this.userService.getUserByUsername(username, true);
     return user;
   }
 
