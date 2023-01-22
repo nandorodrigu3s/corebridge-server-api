@@ -1,6 +1,7 @@
 export const generateFakeCategory = () => {
   const randomIndex = Math.floor(
-    Math.random() * (categories.length - 1 - 0) + 0,
+    // eslint-disable-next-line prettier/prettier
+    Math.random() * ((categories.length - 1) - 0) + 0,
   );
   return categories[randomIndex];
 };

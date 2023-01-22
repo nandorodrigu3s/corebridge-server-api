@@ -8,7 +8,7 @@ export class AppResolver {
 
   @Query(() => [NFTData], { nullable: 'itemsAndList' })
   async listNFTs(@Context() context): Promise<any> {
-    const nftDataList = await this.appService.listNFTs();
+    let nftDataList = await this.appService.listNFTs();
     return nftDataList;
   }
 }

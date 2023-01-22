@@ -1,12 +1,18 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { catchError, firstValueFrom, lastValueFrom, map, Observable } from 'rxjs';
+import {
+  catchError,
+  firstValueFrom,
+  lastValueFrom,
+  map,
+  Observable,
+} from 'rxjs';
 
 interface AppXRequestHttpParams<T> {
-  params?: T,
-  data?: T,
-  config?: AxiosRequestConfig
+  params?: T;
+  data?: T;
+  config?: AxiosRequestConfig;
 }
 
 @Injectable()
@@ -20,7 +26,6 @@ export class AppXRequestHttp {
   //axios is facing some erros with "accept-encoding: br"
   //this is why we are setting AE here
   buildHeader() {
-
     // 'X-API-KEY': process.env.OPENSEA_API_KEY,
     const headers = {
       'Accept-Encoding': 'gzip,deflate,compress',
@@ -32,7 +37,7 @@ export class AppXRequestHttp {
     const headers = this.buildHeader();
     return {
       headers,
-      ...paramsBuilder
+      ...paramsBuilder,
     };
   }
 
@@ -45,24 +50,14 @@ export class AppXRequestHttp {
     return this;
   }
 
-  async appXGet<R, T = void>(
+  async appXGet<R, T = any>(
     params?: T,
     config?: AxiosRequestConfig,
   ): Promise<R> {
     try {
-      const mergeParams = {
-        order_direction: 'desc',
-        offset: 0,
-        limit: 10,
-        include_orders: false,
-        ...params,
-      };
       const result = await lastValueFrom(
         this.httpService
-          .get<R>(
-            this.url + this.path,
-            this.buildParams<T>({ params: mergeParams, config })
-          )
+          .get<R>(this.url + this.path, this.buildParams<T>({ params, config }))
           .pipe(
             catchError((error: AxiosError) => {
               throw 'Ops! Algo deu errado #COD_XRQT0001';
@@ -75,17 +70,11 @@ export class AppXRequestHttp {
     }
   }
 
-  async appXPost<T, R>(
-    data?: T,
-    config?: AxiosRequestConfig,
-  ): Promise<R> {
+  async appXPost<T, R>(data?: T, config?: AxiosRequestConfig): Promise<R> {
     try {
       const result = await lastValueFrom(
         this.httpService
-          .post<R>(
-            this.url + this.path,
-            this.buildParams<T>({ data, config })
-          )
+          .post<R>(this.url + this.path, this.buildParams<T>({ data, config }))
           .pipe(
             catchError((error: AxiosError) => {
               throw 'Ops! Algo deu errado #COD_XRQT0003';
@@ -97,5 +86,4 @@ export class AppXRequestHttp {
       throw 'Ops! parece que algo deu errado #COD_XRQT0004';
     }
   }
-
 }

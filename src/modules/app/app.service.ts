@@ -8,7 +8,7 @@ import { NFTDTOToModelMapper } from './mappers/nft-list-dto-to-model.mapper';
 export class AppService {
   constructor(
     private appXRequestHttp: AppXRequestHttp,
-    private nftDTOToModelMapper: NFTDTOToModelMapper
+    private nftDTOToModelMapper: NFTDTOToModelMapper,
   ) {
     this.appXRequestHttp.setBaseUrl(process.env.OPENSEA_API_URL);
   }
@@ -17,9 +17,15 @@ export class AppService {
   }
 
   async listNFTs() {
+    const params = {
+      order_direction: 'desc',
+      offset: 0,
+      limit: 20,
+      include_orders: false,
+    };
     const result = await this.appXRequestHttp
       .setPath('assets')
-      .appXGet<NFTListResponseDTO>();
+      .appXGet<NFTListResponseDTO>(params);
     const nftDataList = this.nftDTOToModelMapper.mapList(result?.assets);
     return nftDataList;
   }
