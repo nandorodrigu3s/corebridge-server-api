@@ -1,73 +1,34 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# corebridge-server-api
+![Corebridge logo](https://github.com/nandorodrigu3s/server-powpular-restful/blob/main/logo/logo_612.png)
+It's a React Native + TS Application with NestJS + Graphql Rest API created to simulate
+a "NFT E-commerce" where you can find basic features like List NFT's, Add & Remove to the cart,
+List added itens into the cart and finalize the purchase simulation, sending your choosen itens to a virtual
+wallet. After finished the buy flow, you will be able to see your previous bought itens in a Wallet.
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+It is integrated with OpenSea public API.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+If you are for a live preview of this project, please follow these steps below:
+(To set up the mobile app, please follow this link: https://github.com/nandorodrigu3s/corebridge)
 
-## Description
+REQUIREMENTS:
+Node v16 or higher
+MongoDB v4.4.23 or higher
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+1- Clone this repository
+git clone https://github.com/nandorodrigu3s/corebridge-server-api.git (HTTPS method)
+https://github.com/nandorodrigu3s/corebridge-server-api/archive/refs/heads/main.zip (download ZIP method)
 
-## Installation
+2- npm install or Yarn
 
-```bash
-$ yarn install
-```
+(If you don't have a MongoDB enviroment set on your machine, you can use Docker to get it done. In this project I have set a docker-compose file to help you with it. Otherwise, you might see the official docs to a better support https://www.mongodb.com/docs/manual/installation/)
 
-## Running the app
+3- yarn run load:schema or npm run load:schema
 
-```bash
-# development
-$ yarn run start
+4- yarn start or npm run start
 
-# watch mode
-$ yarn run start:dev
+That's it!
 
-# production mode
-$ yarn run start:prod
-```
+OBS:
+1 - Default port to this project is set as 3001. If you would like to change the target port to this project, go to .env file and set PORT variable as you wish.
 
-## Test
-
-```bash
-# unit tests
-$ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+2 - Apollo GraphQL had a strong 'built in' tool to test and populate your local API enviroment, just access http://localhost:<port>/graphql (for more information see https://www.apollographql.com/docs/apollo-server/v2/testing/graphql-playground/)
