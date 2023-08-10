@@ -27,7 +27,10 @@ import { NFTDTOToModelMapper } from './mappers/nft-list-dto-to-model.mapper';
     CartModule,
     OrderModule,
     HttpModule,
-    MongooseModule.forRoot(`${process.env.MONGODB_URL}`),
+    MongooseModule.forRoot(`${process.env.MONGODB_URL}`, {
+      useNewUrlParser: true,
+      dbName: `${process.env.MONGODB_DATABASE}`,
+    }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       typePaths: [join(process.cwd(), 'src/graphql/app-schema/schema.gql')],
@@ -40,7 +43,7 @@ import { NFTDTOToModelMapper } from './mappers/nft-list-dto-to-model.mapper';
     LocalStrategy,
     JwtService,
     AppXRequestHttp,
-    NFTDTOToModelMapper
+    NFTDTOToModelMapper,
   ],
 })
 export class AppModule {}

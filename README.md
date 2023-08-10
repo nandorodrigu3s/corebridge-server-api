@@ -1,34 +1,68 @@
 # corebridge-server-api
-![Corebridge logo](https://github.com/nandorodrigu3s/server-powpular-restful/blob/main/logo/logo_612.png)
-It's a React Native + TS Application with NestJS + Graphql Rest API created to simulate
+![Corebridge logo](https://github.com/nandorodrigu3s/corebrige-server-api/blob/main/logo/logo_612.png)
+
+<p>It's a React Native + TS Application with NestJS + GraphQL Rest API created to simulate
 a "NFT E-commerce" where you can find basic features like List NFT's, Add & Remove to the cart,
 List added itens into the cart and finalize the purchase simulation, sending your choosen itens to a virtual
-wallet. After finished the buy flow, you will be able to see your previous bought itens in a Wallet.
+wallet. After finished the buy flow, you will be able to see your bought itens in a Wallet.</p>
 
-It is integrated with OpenSea public API.
+This project is integrated with OpenSea public [API](https://docs.opensea.io/reference/api-overview).
 
-If you are for a live preview of this project, please follow these steps below:
-(To set up the mobile app, please follow this link: https://github.com/nandorodrigu3s/corebridge)
+# Requirements:
+> 1. Node v16 or higher
+> 2. MongoDB v4.4.23 or higher
 
-REQUIREMENTS:
-Node v16 or higher
-MongoDB v4.4.23 or higher
+If you don't have a MongoDB environment set on your machine, you can use Docker to get it done. In this project I have set a docker-compose file to help you with it. Otherwise, you might see the official docs to a better support
+[MongoDB DOCS](https://www.mongodb.com/docs/manual/installation/)
 
-1- Clone this repository
-git clone https://github.com/nandorodrigu3s/corebridge-server-api.git (HTTPS method)
-https://github.com/nandorodrigu3s/corebridge-server-api/archive/refs/heads/main.zip (download ZIP method)
+To set up the mobile app, please follow this link: [App Repository](https://github.com/nandorodrigu3s/powpular-app)
 
-2- npm install or Yarn
 
-(If you don't have a MongoDB enviroment set on your machine, you can use Docker to get it done. In this project I have set a docker-compose file to help you with it. Otherwise, you might see the official docs to a better support https://www.mongodb.com/docs/manual/installation/)
+# Follow these steps below to setup the API server
 
-3- yarn run load:schema or npm run load:schema
+1- [download ZIP](https://github.com/nandorodrigu3s/server-powpular-restful/archive/refs/heads/main.zip) or clone repository
 
-4- yarn start or npm run start
+```bash
+git clone https://github.com/nandorodrigu3s/server-powpular-restful.git
+```
 
-That's it!
+2- Install packages
+```bash
+ npm install
+```
+or
+```bash
+ yarn install
+```
+
+3- Run Codegen script for GraphQL types and start server
+```bash
+ yarn run load:schema
+```
+or
+```bash
+ npm run load:schema
+```
+
+4- Start the server (This command is needed only in case you have stopped previous run)
+```bash
+ yarn start
+```
+or
+```bash
+ npm run start
+```
+
+# # That's it!
 
 OBS:
-1 - Default port to this project is set as 3001. If you would like to change the target port to this project, go to .env file and set PORT variable as you wish.
+> 1- Default port to this project is set as 3001. If you would like to change the target port to this project, go to .env file and set PORT variable as you wish.
+```bash
+ http://localhost:<port>
+```
 
-2 - Apollo GraphQL had a strong 'built in' tool to test and populate your local API enviroment, just access http://localhost:<port>/graphql (for more information see https://www.apollographql.com/docs/apollo-server/v2/testing/graphql-playground/)
+> 2- Apollo GraphQL has a strong 'built in' tool to test and populate your local API environment. For more information see [Apollo Playground DOCS](https://www.apollographql.com/docs/apollo-server/v2/testing/graphql-playground/)
+
+```bash
+ http://localhost:<port>/graphql
+```
