@@ -15,15 +15,15 @@ This project is integrated with OpenSea public [API](https://docs.opensea.io/ref
 If you don't have a MongoDB environment set on your machine, you can use Docker to get it done. In this project I have set a docker-compose file to help you with it. Otherwise, you might see the official docs to a better support
 [MongoDB DOCS](https://www.mongodb.com/docs/manual/installation/)
 
-To set up the mobile app, please follow this link: [App Repository](https://github.com/nandorodrigu3s/powpular-app)
+To set up the mobile app, please follow this link: [App Repository](https://github.com/nandorodrigu3s/corebridge)
 
 
 # Follow these steps below to setup the API server
 
-1- [download ZIP](https://github.com/nandorodrigu3s/server-powpular-restful/archive/refs/heads/main.zip) or clone repository
+1- [download ZIP](https://github.com/nandorodrigu3s/corebridge-server-api/archive/refs/heads/main.zip) or clone repository
 
 ```bash
-git clone https://github.com/nandorodrigu3s/server-powpular-restful.git
+git clone https://github.com/nandorodrigu3s/corebridge-server-api.git
 ```
 
 2- Install packages
