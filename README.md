@@ -1,5 +1,8 @@
 # corebridge-server-api
-![Corebridge logo](https://github.com/nandorodrigu3s/corebridge-server-api/blob/main/logo/logo_612.png)
+
+<p align="center">
+  <img src="https://github.com/nandorodrigu3s/corebridge-server-api/blob/main/logo/logo_612.png" />
+</p>
 
 <p>It's a React Native + TS Application with NestJS + GraphQL Rest API created to simulate
 a "NFT E-commerce" where you can find basic features like List NFT's, Add & Remove to the cart,
